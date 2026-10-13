@@ -46,7 +46,7 @@ export function ToggleGroupItem({ value, children, disabled, disabledReason }: T
       value={value}
       disabled={disabled}
       className={cn(
-        "h-7 cursor-pointer rounded-[5px] px-3 text-[13px] font-medium text-slate-600 select-none data-pressed:bg-white data-pressed:text-slate-900 data-pressed:shadow-sm data-disabled:cursor-not-allowed data-disabled:text-slate-400",
+        "h-7 cursor-pointer rounded-[5px] max-md:h-10 px-3 text-[13px] font-medium text-slate-600 select-none data-pressed:bg-white data-pressed:text-slate-900 data-pressed:shadow-sm data-disabled:cursor-not-allowed data-disabled:text-slate-400",
         focusRing,
       )}
     >

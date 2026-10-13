@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Read-only design export, not shipped.
+    ".design/**",
+    ".claude/**",
   ]),
 ]);
 

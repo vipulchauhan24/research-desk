@@ -25,7 +25,16 @@ function isActive(pathname: string, item: NavItem) {
   return item.match === "/" ? pathname === "/" : pathname.startsWith(item.match);
 }
 
-export function AppShell({ title, children }: { title: string; children: ReactNode }) {
+interface AppShellProps {
+  title: string;
+  // Muted line under the title, e.g. a count.
+  subtitle?: ReactNode;
+  // Page-level primary action, top-right of the header. Omit on read-only views.
+  action?: ReactNode;
+  children: ReactNode;
+}
+
+export function AppShell({ title, subtitle, action, children }: AppShellProps) {
   const { pathname } = useRouter();
 
   return (
@@ -79,7 +88,13 @@ export function AppShell({ title, children }: { title: string; children: ReactNo
         </nav>
 
         <main className="mx-auto max-w-7xl p-4 md:p-6">
-          <h1 className="mb-4 hidden text-2xl font-semibold text-slate-900 md:block">{title}</h1>
+          <div className="mb-4 flex items-end justify-between gap-6">
+            <div>
+              <h1 className="hidden text-2xl font-semibold text-slate-900 md:block">{title}</h1>
+              {subtitle && <div className="text-slate-500">{subtitle}</div>}
+            </div>
+            {action && <div className="hidden md:block">{action}</div>}
+          </div>
           {children}
         </main>
       </div>
