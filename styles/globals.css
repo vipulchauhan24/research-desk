@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, Menlo, monospace;
+}
+
+body {
+  @apply bg-slate-50 font-sans text-sm text-slate-700 tabular-nums;
+}
