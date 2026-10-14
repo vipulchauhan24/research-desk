@@ -31,10 +31,12 @@ interface AppShellProps {
   subtitle?: ReactNode;
   // Page-level primary action, top-right of the header. Omit on read-only views.
   action?: ReactNode;
+  // Replaces the default title block when a page needs its own header (e.g. the company page).
+  header?: ReactNode;
   children: ReactNode;
 }
 
-export function AppShell({ title, subtitle, action, children }: AppShellProps) {
+export function AppShell({ title, subtitle, action, header, children }: AppShellProps) {
   const { pathname } = useRouter();
 
   return (
@@ -88,13 +90,15 @@ export function AppShell({ title, subtitle, action, children }: AppShellProps) {
         </nav>
 
         <main className="mx-auto max-w-7xl p-4 md:p-6">
-          <div className="mb-4 flex items-end justify-between gap-6">
-            <div>
-              <h1 className="hidden text-2xl font-semibold text-slate-900 md:block">{title}</h1>
-              {subtitle && <div className="text-slate-500">{subtitle}</div>}
+          {header ?? (
+            <div className="mb-4 flex items-end justify-between gap-6">
+              <div>
+                <h1 className="hidden text-2xl font-semibold text-slate-900 md:block">{title}</h1>
+                {subtitle && <div className="text-slate-500">{subtitle}</div>}
+              </div>
+              {action && <div className="hidden md:block">{action}</div>}
             </div>
-            {action && <div className="hidden md:block">{action}</div>}
-          </div>
+          )}
           {children}
         </main>
       </div>

@@ -44,6 +44,24 @@ export const COMPANY_FORM_DEFAULTS: CompanyFormDraft = {
   status: "Watch",
 };
 
+// Accepts what people type ("1,284.5"), then checks the plain number: up to 2 decimals, above zero.
+export const priceFormSchema = z.object({
+  price: z
+    .string()
+    .trim()
+    .transform((value) => value.replaceAll(",", ""))
+    .pipe(
+      z
+        .string()
+        .regex(/^\d{1,9}(\.\d{1,2})?$/, "Enter a price like 1284.50")
+        .refine((value) => Number(value) > 0, "Enter a price above zero"),
+    ),
+});
+
+export interface PriceFormDraft {
+  price: string;
+}
+
 export interface CompanyFilters {
   query: string;
   status: "All" | CompanyStatus;

@@ -47,6 +47,70 @@ export type Database = {
         }
         Relationships: []
       }
+      note_drafts: {
+        Row: {
+          based_on_version: number | null
+          company_id: string
+          content: Json
+          updated_at: string
+        }
+        Insert: {
+          based_on_version?: number | null
+          company_id: string
+          content: Json
+          updated_at?: string
+        }
+        Update: {
+          based_on_version?: number | null
+          company_id?: string
+          content?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "note_drafts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: true
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      note_versions: {
+        Row: {
+          change_note: string
+          company_id: string
+          content: Json
+          created_at: string
+          id: string
+          version: number
+        }
+        Insert: {
+          change_note: string
+          company_id: string
+          content: Json
+          created_at?: string
+          id?: string
+          version: number
+        }
+        Update: {
+          change_note?: string
+          company_id?: string
+          content?: Json
+          created_at?: string
+          id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "note_versions_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       price_entries: {
         Row: {
           as_of: string
@@ -79,12 +143,47 @@ export type Database = {
           },
         ]
       }
+      research_links: {
+        Row: {
+          company_id: string
+          created_at: string
+          id: string
+          label: string
+          url: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          id?: string
+          label: string
+          url: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          id?: string
+          label?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "research_links_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      save_note_version: {
+        Args: { p_change_note: string; p_company_id: string }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never

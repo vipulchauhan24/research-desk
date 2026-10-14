@@ -8,3 +8,43 @@
 body {
   @apply bg-slate-50 font-sans text-sm text-slate-700 tabular-nums;
 }
+
+/* Rich-text content (Research tab editor and read-only renderer). Sizes follow the Rich-text editor spec in theme.md. */
+.rich-text {
+  @apply leading-6 text-slate-700;
+}
+.rich-text p {
+  @apply mb-3;
+}
+/* scroll-mt clears the sticky toolbar when the outline scrolls a heading into view. */
+.rich-text h2 {
+  @apply mt-6 mb-2 scroll-mt-40 text-xl font-semibold text-slate-900 first:mt-0;
+}
+.rich-text h3 {
+  @apply mt-5 mb-2 scroll-mt-40 text-base font-semibold text-slate-900 first:mt-0;
+}
+.rich-text ul {
+  @apply mb-4 list-disc pl-5;
+}
+.rich-text ol {
+  @apply mb-4 list-decimal pl-5;
+}
+.rich-text a {
+  @apply text-indigo-600 hover:text-indigo-700 hover:underline;
+}
+.rich-text .tableWrapper {
+  @apply my-3 overflow-x-auto;
+}
+.rich-text table {
+  @apply w-full border-collapse text-sm;
+}
+.rich-text th,
+.rich-text td {
+  @apply min-w-24 border border-slate-200 px-3 py-1.5 text-left align-top;
+}
+.rich-text th {
+  @apply bg-slate-50 text-xs font-medium text-slate-500;
+}
+.rich-text .selectedCell {
+  @apply bg-indigo-50;
+}

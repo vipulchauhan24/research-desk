@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 import { focusRing } from "./styles";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
-export type ButtonSize = "md" | "sm" | "icon";
+export type ButtonSize = "md" | "sm" | "icon" | "toolbar";
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary:
@@ -20,6 +20,8 @@ const SIZE: Record<ButtonSize, string> = {
   md: "h-9 px-3.5",
   sm: "h-8 px-3",
   icon: "size-8",
+  // Editor toolbar: 32px tall, as narrow as a single glyph but growing for labels like "• List".
+  toolbar: "h-8 min-w-8 px-2",
 };
 
 export interface ButtonProps extends ComponentProps<typeof BaseButton> {

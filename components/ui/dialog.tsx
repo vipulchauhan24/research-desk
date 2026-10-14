@@ -21,8 +21,8 @@ interface DialogContentProps {
 export function DialogContent({ title, description, children, actions }: DialogContentProps) {
   return (
     <BaseDialog.Portal>
-      <BaseDialog.Backdrop className="fixed inset-0 bg-slate-900/30 transition-opacity duration-150 data-starting-style:opacity-0 data-ending-style:opacity-0" />
-      <BaseDialog.Popup className="fixed top-1/2 left-1/2 w-lg max-w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-slate-200 bg-white p-4 shadow-lg outline-none transition-opacity duration-150 data-starting-style:opacity-0 data-ending-style:opacity-0">
+      <BaseDialog.Backdrop className="fixed inset-0 z-50 bg-slate-900/30 transition-opacity duration-150 data-starting-style:opacity-0 data-ending-style:opacity-0" />
+      <BaseDialog.Popup className="fixed z-50 top-1/2 left-1/2 w-lg max-w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-slate-200 bg-white p-4 shadow-lg outline-none transition-opacity duration-150 data-starting-style:opacity-0 data-ending-style:opacity-0">
         <BaseDialog.Title className="font-semibold text-slate-900">{title}</BaseDialog.Title>
         {description && (
           <BaseDialog.Description className="mt-1 text-slate-500">{description}</BaseDialog.Description>
