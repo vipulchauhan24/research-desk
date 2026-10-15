@@ -1,4 +1,5 @@
 import { createFormHook } from "@tanstack/react-form";
+import { CellField } from "./cell-field";
 import { FormError } from "./form-error";
 import { fieldContext, formContext } from "./form-context";
 import { SelectField } from "./select-field";
@@ -9,6 +10,6 @@ import { TextField } from "./text-field";
 export const { useAppForm } = createFormHook({
   fieldContext,
   formContext,
-  fieldComponents: { TextField, SelectField },
+  fieldComponents: { TextField, SelectField, CellField },
   formComponents: { SubmitButton, FormError },
 });

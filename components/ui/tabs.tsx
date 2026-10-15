@@ -39,3 +39,27 @@ export function TabsPanel({ className, ...props }: ComponentProps<typeof BaseTab
     />
   );
 }
+
+// Pill tabs for a second level of navigation under the underline tabs (e.g. valuation methods).
+// The list is padded so the focus ring of the first and last pill isn't clipped by the scroll container.
+export function PillTabsList({ className, ...props }: ComponentProps<typeof BaseTabs.List>) {
+  return (
+    <BaseTabs.List
+      className={cn("flex gap-1 overflow-x-auto p-1 max-md:flex-nowrap md:flex-wrap", typeof className === "string" && className)}
+      {...props}
+    />
+  );
+}
+
+export function PillTab({ className, ...props }: ComponentProps<typeof BaseTabs.Tab>) {
+  return (
+    <BaseTabs.Tab
+      className={cn(
+        "h-8 shrink-0 cursor-pointer rounded-md border border-transparent px-3 text-sm font-medium whitespace-nowrap text-slate-600 hover:bg-slate-100 max-md:h-11 data-active:border-indigo-200 data-active:bg-indigo-50 data-active:text-indigo-700",
+        focusRing,
+        typeof className === "string" && className,
+      )}
+      {...props}
+    />
+  );
+}

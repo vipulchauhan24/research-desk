@@ -16,3 +16,35 @@ export function paiseToRupeesInput(paise: number | null): string {
   const fraction = String(paise % 100).padStart(2, "0");
   return `${whole}.${fraction}`;
 }
+
+// Valuation amounts are typed in ₹ Cr (1 Cr = 1,00,00,000 rupees = 1,000,000,000 paise) and stored as integer paise.
+const PAISE_PER_CRORE = 1_000_000_000;
+const PAISE_PER_CRORE_HUNDREDTH = PAISE_PER_CRORE / 100;
+
+// Signed ("-24.5"), up to 2 decimals. Parsed from the string so no float rounding touches the stored amount.
+export function croreToPaise(crore: string): number {
+  const text = crore.replaceAll(",", "").trim();
+  const negative = text.startsWith("-");
+  const [whole = "0", fraction = ""] = text.replace(/^[-+]/, "").split(".");
+  const hundredths = fraction.padEnd(2, "0").slice(0, 2);
+  const paise = Number(whole) * PAISE_PER_CRORE + Number(hundredths) * PAISE_PER_CRORE_HUNDREDTH;
+  return negative ? -paise : paise;
+}
+
+// "118.5" rather than "118.50": editable text that re-parses to the same paise.
+export function paiseToCroreInput(paise: number): string {
+  const sign = paise < 0 ? "-" : "";
+  const hundredths = Math.round(Math.abs(paise) / PAISE_PER_CRORE_HUNDREDTH);
+  const whole = Math.floor(hundredths / 100);
+  const fraction = String(hundredths % 100).padStart(2, "0").replace(/0+$/, "");
+  return `${sign}${whole}${fraction ? `.${fraction}` : ""}`;
+}
+
+// Maths on valuation inputs works in ₹ Cr; this is the only place the stored paise leave their integer form.
+export function paiseToCrore(paise: number): number {
+  return paise / PAISE_PER_CRORE;
+}
+
+export function paiseToRupees(paise: number): number {
+  return paise / 100;
+}

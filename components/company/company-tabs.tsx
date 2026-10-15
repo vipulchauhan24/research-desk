@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@/components/ui/tabs";
 import { ResearchTab } from "@/components/research/research-tab";
+import { ValuationTab } from "@/components/valuation/valuation-tab";
 
 // Tab order and labels from .design/FEATURES.md §3.
 const TABS = [
@@ -46,6 +47,8 @@ export function CompanyTabs({ companyId }: { companyId: string }) {
         <TabsPanel key={value} value={value}>
           {value === "research" ? (
             <ResearchTab companyId={companyId} />
+          ) : value === "valuation" ? (
+            <ValuationTab companyId={companyId} />
           ) : (
             <Card>
               <EmptyState title={label} description="This section isn't built yet." />
