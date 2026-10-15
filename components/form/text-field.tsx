@@ -11,10 +11,12 @@ interface TextFieldProps {
   // Right-align and use tabular figures for numeric entry.
   numeric?: boolean;
   prefix?: string;
+  // e.g. "date" for the browser's date picker.
+  type?: string;
   className?: string;
 }
 
-export function TextField({ label, placeholder, autoComplete = "off", numeric, prefix, className }: TextFieldProps) {
+export function TextField({ label, placeholder, autoComplete = "off", numeric, prefix, type, className }: TextFieldProps) {
   const field = useFieldContext<string>();
   const { isTouched, errors, isValidating } = field.state.meta;
   // Hide errors until the user has interacted; submit marks every field touched.
@@ -36,6 +38,7 @@ export function TextField({ label, placeholder, autoComplete = "off", numeric, p
         autoComplete={autoComplete}
         numeric={numeric}
         prefix={prefix}
+        type={type}
       />
     </Field>
   );

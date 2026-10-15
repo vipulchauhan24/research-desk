@@ -48,3 +48,28 @@ export function paiseToCrore(paise: number): number {
 export function paiseToRupees(paise: number): number {
   return paise / 100;
 }
+
+// Percentages in the tracker (OPM and the like) are stored as integer basis points, hundredths of a percent:
+// 18.4% -> 1840. Same reason as paise: no float ever holds a stored value.
+const BASIS_POINTS_PER_PERCENT = 100;
+
+// Signed ("-3.5"), up to 2 decimals.
+export function percentToBasisPoints(percent: string): number {
+  const text = percent.replaceAll(",", "").trim();
+  const negative = text.startsWith("-");
+  const [whole = "0", fraction = ""] = text.replace(/^[-+]/, "").split(".");
+  const basisPoints = Number(whole) * BASIS_POINTS_PER_PERCENT + Number(fraction.padEnd(2, "0").slice(0, 2));
+  return negative ? -basisPoints : basisPoints;
+}
+
+export function basisPointsToPercentInput(basisPoints: number): string {
+  const sign = basisPoints < 0 ? "-" : "";
+  const abs = Math.abs(basisPoints);
+  const whole = Math.floor(abs / BASIS_POINTS_PER_PERCENT);
+  const fraction = String(abs % BASIS_POINTS_PER_PERCENT).padStart(2, "0").replace(/0+$/, "");
+  return `${sign}${whole}${fraction ? `.${fraction}` : ""}`;
+}
+
+export function basisPointsToPercent(basisPoints: number): number {
+  return basisPoints / BASIS_POINTS_PER_PERCENT;
+}

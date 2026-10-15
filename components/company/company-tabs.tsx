@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@/components/ui/tabs";
+import { DocumentsTab } from "@/components/documents/documents-tab";
 import { OrderBookTab } from "@/components/order-book/order-book-tab";
 import { ResearchTab } from "@/components/research/research-tab";
 import { ValuationTab } from "@/components/valuation/valuation-tab";
@@ -52,6 +53,8 @@ export function CompanyTabs({ companyId }: { companyId: string }) {
             <ValuationTab companyId={companyId} />
           ) : value === "order-book" ? (
             <OrderBookTab companyId={companyId} />
+          ) : value === "documents" ? (
+            <DocumentsTab companyId={companyId} />
           ) : (
             <Card>
               <EmptyState title={label} description="This section isn't built yet." />

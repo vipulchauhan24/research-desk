@@ -100,6 +100,56 @@ export type Database = {
         }
         Relationships: []
       }
+      documents: {
+        Row: {
+          company_id: string
+          created_at: string
+          doc_date: string
+          doc_type: string
+          file_name: string | null
+          id: string
+          period: string | null
+          storage_path: string | null
+          summary: string | null
+          title: string
+          url: string | null
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          doc_date: string
+          doc_type: string
+          file_name?: string | null
+          id?: string
+          period?: string | null
+          storage_path?: string | null
+          summary?: string | null
+          title: string
+          url?: string | null
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          doc_date?: string
+          doc_type?: string
+          file_name?: string | null
+          id?: string
+          period?: string | null
+          storage_path?: string | null
+          summary?: string | null
+          title?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       note_drafts: {
         Row: {
           based_on_version: number | null
@@ -268,6 +318,53 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "research_links_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tracker_rows: {
+        Row: {
+          actual: number | null
+          case_name: string
+          company_id: string
+          created_at: string
+          fiscal_year: number
+          id: string
+          metric: string
+          predicted: number
+          quarter: number
+          unit: string
+        }
+        Insert: {
+          actual?: number | null
+          case_name: string
+          company_id: string
+          created_at?: string
+          fiscal_year: number
+          id?: string
+          metric: string
+          predicted: number
+          quarter: number
+          unit: string
+        }
+        Update: {
+          actual?: number | null
+          case_name?: string
+          company_id?: string
+          created_at?: string
+          fiscal_year?: number
+          id?: string
+          metric?: string
+          predicted?: number
+          quarter?: number
+          unit?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tracker_rows_company_id_fkey"
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
