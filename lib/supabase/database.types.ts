@@ -14,6 +14,59 @@ export type Database = {
   }
   public: {
     Tables: {
+      capex_rows: {
+        Row: {
+          capacity_added: string | null
+          commissioning_fy: number
+          commissioning_quarter: number
+          company_id: string
+          created_at: string
+          funding: string | null
+          id: string
+          outlay_paise: number
+          project: string
+          source_note: string | null
+          source_url: string | null
+          status: string
+        }
+        Insert: {
+          capacity_added?: string | null
+          commissioning_fy: number
+          commissioning_quarter: number
+          company_id: string
+          created_at?: string
+          funding?: string | null
+          id?: string
+          outlay_paise: number
+          project: string
+          source_note?: string | null
+          source_url?: string | null
+          status: string
+        }
+        Update: {
+          capacity_added?: string | null
+          commissioning_fy?: number
+          commissioning_quarter?: number
+          company_id?: string
+          created_at?: string
+          funding?: string | null
+          id?: string
+          outlay_paise?: number
+          project?: string
+          source_note?: string | null
+          source_url?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "capex_rows_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           business_type: string
@@ -104,6 +157,53 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "note_versions_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_book_rows: {
+        Row: {
+          company_id: string
+          created_at: string
+          customer: string
+          execution_by: string
+          id: string
+          ordered_on: string
+          source_note: string | null
+          source_url: string | null
+          status: string
+          value_paise: number
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          customer: string
+          execution_by: string
+          id?: string
+          ordered_on: string
+          source_note?: string | null
+          source_url?: string | null
+          status: string
+          value_paise: number
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          customer?: string
+          execution_by?: string
+          id?: string
+          ordered_on?: string
+          source_note?: string | null
+          source_url?: string | null
+          status?: string
+          value_paise?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_book_rows_company_id_fkey"
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"

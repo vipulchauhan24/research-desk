@@ -14,6 +14,13 @@ export const STATUS_TONE = {
   STCG: "blue",
   Hold: "slate",
   "Not hit": "slate",
+  // Order book and capex lifecycles: not started, under way, done.
+  Open: "slate",
+  "In execution": "blue",
+  Completed: "green",
+  Planned: "slate",
+  "In progress": "blue",
+  Commissioned: "green",
 } as const satisfies Record<string, Tone>;
 
 export type Status = keyof typeof STATUS_TONE;

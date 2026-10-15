@@ -20,6 +20,8 @@ interface DataTableProps<T> {
   getRowKey: (row: T) => string;
   "aria-label": string;
   onRowClick?: (row: T) => void;
+  // The row shown as selected, e.g. the document whose summary is open below.
+  selectedRowKey?: string;
   sort?: { key: string; direction: SortDirection } | null;
   onSortChange?: (key: string) => void;
   // Shown when rows is empty, usually an <EmptyState />.
@@ -35,6 +37,7 @@ export function DataTable<T>({
   rows,
   getRowKey,
   onRowClick,
+  selectedRowKey,
   sort,
   onSortChange,
   empty,
@@ -47,6 +50,8 @@ export function DataTable<T>({
   if (rows.length === 0 && empty) return <>{empty}</>;
 
   function handleRowKey(event: KeyboardEvent, row: T) {
+    // Keys pressed on a button or link inside the row belong to that control, not to the row.
+    if (event.target !== event.currentTarget) return;
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       onRowClick?.(row);
@@ -102,11 +107,13 @@ export function DataTable<T>({
           {rows.map((row) => (
             <tr
               key={getRowKey(row)}
+              data-selected={selectedRowKey !== undefined && selectedRowKey === getRowKey(row) ? true : undefined}
+              aria-current={selectedRowKey !== undefined && selectedRowKey === getRowKey(row) ? "true" : undefined}
               onClick={onRowClick ? () => onRowClick(row) : undefined}
               onKeyDown={onRowClick ? (event) => handleRowKey(event, row) : undefined}
               tabIndex={onRowClick ? 0 : undefined}
               className={cn(
-                "group/row hover:bg-slate-50 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-500",
+                "group/row hover:bg-slate-50 data-selected:bg-indigo-50 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-500",
                 onRowClick && "cursor-pointer",
               )}
             >
@@ -116,7 +123,7 @@ export function DataTable<T>({
                   className={cn(
                     "border-b border-slate-100 px-3 py-2 max-md:py-3",
                     column.align === "right" ? "text-right tabular-nums" : "text-left",
-                    index === 0 && cn(stickyCell, "z-10 bg-white group-hover/row:bg-slate-50"),
+                    index === 0 && cn(stickyCell, "z-10 bg-white group-hover/row:bg-slate-50 group-data-selected/row:bg-indigo-50"),
                   )}
                 >
                   {column.cell(row)}

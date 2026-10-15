@@ -83,3 +83,13 @@ export function ArrowDownIcon(props: ComponentProps<"svg">) {
     </Svg>
   );
 }
+
+export function MoreIcon(props: ComponentProps<"svg">) {
+  return (
+    <Svg {...props}>
+      <circle cx="3.5" cy="8" r="0.75" fill="currentColor" />
+      <circle cx="8" cy="8" r="0.75" fill="currentColor" />
+      <circle cx="12.5" cy="8" r="0.75" fill="currentColor" />
+    </Svg>
+  );
+}

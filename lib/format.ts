@@ -56,3 +56,20 @@ export function formatMultiple(value: number): string {
 export function formatFiscalYear(year: number, estimate = false): string {
   return `FY${String(year % 100).padStart(2, "0")}${estimate ? "E" : ""}`;
 }
+
+// "2026-06-01" -> "Jun 2026", for dates that are only known to the month.
+export function formatMonth(iso: string | null | undefined): string {
+  if (!iso) return PLACEHOLDER;
+  const [year, month] = iso.split("-").map(Number);
+  return `${MONTHS[month - 1]} ${year}`;
+}
+
+// (2027, 3) -> "Q3 FY27": the fiscal year is named for the year it ends in.
+export function formatFiscalQuarter(fiscalYear: number, quarter: number): string {
+  return `Q${quarter} ${formatFiscalYear(fiscalYear)}`;
+}
+
+// A headline total: whole crores when it is one, otherwise one decimal (₹ 1,420 Cr, ₹ 110.5 Cr).
+export function formatCroreHeadline(crore: number): string {
+  return formatCrore(crore, Number.isInteger(crore) ? 0 : 1);
+}
