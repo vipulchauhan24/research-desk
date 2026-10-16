@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsPanel, TabsTab } from "@/components/ui/tabs";
 import { DocumentsTab } from "@/components/documents/documents-tab";
 import { OrderBookTab } from "@/components/order-book/order-book-tab";
 import { ResearchTab } from "@/components/research/research-tab";
+import { ScenarioTab } from "@/components/scenarios/scenario-tab";
 import { ValuationTab } from "@/components/valuation/valuation-tab";
 
 // Tab order and labels from .design/FEATURES.md §3.
@@ -49,6 +50,8 @@ export function CompanyTabs({ companyId }: { companyId: string }) {
         <TabsPanel key={value} value={value}>
           {value === "research" ? (
             <ResearchTab companyId={companyId} />
+          ) : value === "scenarios" ? (
+            <ScenarioTab companyId={companyId} />
           ) : value === "valuation" ? (
             <ValuationTab companyId={companyId} />
           ) : value === "order-book" ? (

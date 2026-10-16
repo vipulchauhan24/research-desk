@@ -325,6 +325,67 @@ export type Database = {
           },
         ]
       }
+      scenario_drafts: {
+        Row: {
+          based_on_version: number | null
+          company_id: string
+          data: Json
+          updated_at: string
+        }
+        Insert: {
+          based_on_version?: number | null
+          company_id: string
+          data: Json
+          updated_at?: string
+        }
+        Update: {
+          based_on_version?: number | null
+          company_id?: string
+          data?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scenario_drafts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: true
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scenario_versions: {
+        Row: {
+          company_id: string
+          created_at: string
+          data: Json
+          id: string
+          version: number
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          data: Json
+          id?: string
+          version: number
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          data?: Json
+          id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scenario_versions_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tracker_rows: {
         Row: {
           actual: number | null
@@ -408,6 +469,10 @@ export type Database = {
     Functions: {
       save_note_version: {
         Args: { p_change_note: string; p_company_id: string }
+        Returns: number
+      }
+      save_scenario_version: {
+        Args: { p_company_id: string; p_data: Json }
         Returns: number
       }
     }
